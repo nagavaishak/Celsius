@@ -44,6 +44,9 @@ thiserror = "1.0"
 # Regex
 regex = "1.10"
 
+# Random (for paper trading simulation)
+rand = "0.8"
+
 # Metrics (optional, Phase 3+)
 prometheus = { version = "0.13", optional = true }
 

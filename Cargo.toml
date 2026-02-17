@@ -24,7 +24,7 @@ ethers = "2.0"
 dashmap = "5.5"
 
 # Time
-chrono = "0.4"
+chrono = { version = "0.4", features = ["serde"] }
 
 # State persistence
 rusqlite = "0.30"

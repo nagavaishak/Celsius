@@ -1,0 +1,65 @@
+# Polymarket Bot Configuration - Phase 2 (Paper Trading / Live Testing $500)
+
+[system]
+dry_run = true  # CRITICAL: Set to false only for live trading
+database_path = "positions.db"
+
+[strategies.weather]
+enabled = true
+min_edge = 0.10  # 10% minimum edge (test 8%, 12%, 15% during paper trading)
+target_cities = ["London", "New York", "Chicago", "Seoul"]
+forecast_lead_time_hours = 24  # Minimum 24h for forecast reliability
+polling_interval_secs = 3600  # Hourly polling
+polling_interval_urgent_secs = 900  # 15min for markets resolving within 24h
+
+[strategies.arbitrage]
+enabled = false  # Phase 3+ only - requires faster infrastructure
+min_spread = 0.025  # 2.5% for regular markets
+min_spread_15min_crypto = 0.035  # 3.5% for 15-min markets (3.15% fee)
+execution_timeout_ms = 500
+
+[risk]
+# Phase 2 Limits (Conservative)
+max_position_size_usd = 50.0  # $50 max per position
+max_position_pct = 0.10  # 10% of capital max
+max_open_positions = 2  # Maximum 2 simultaneous positions
+max_daily_trades = 5  # Maximum 5 trades per day
+max_daily_loss_usd = 50.0  # Stop trading if daily loss exceeds $50
+max_drawdown_pct = 0.15  # Circuit breaker at 15% drawdown
+max_positions_per_city_per_day = 1  # Correlation limit
+
+# Validation
+claude_validation_weather = true  # Use Claude AI for weather validation
+claude_validation_arb = false  # NEVER use Claude for arb (kills latency)
+
+# Market quality filters
+min_liquidity_usd = 5000.0  # Minimum $5K liquidity
+max_gas_gwei = 100  # Reject trades if gas >100 gwei
+
+[infrastructure]
+# Dual RPC Failover (OPUS requirement)
+primary_rpc = "alchemy"
+secondary_rpc = "quicknode"
+rpc_timeout_secs = 5
+rpc_failover_enabled = true
+
+# WebSocket
+websocket_reconnect_backoff_secs = 1
+websocket_max_reconnect_delay_secs = 60
+websocket_staleness_threshold_secs = 2
+
+# Cache TTL
+cache_ttl_arb_ms = 500  # 500ms for arbitrage
+cache_ttl_weather_secs = 300  # 5min for weather
+
+[monitoring]
+csv_logging = true  # MANDATORY - never disable
+csv_log_path = "trades.csv"
+prometheus_enabled = false  # Phase 3+
+telegram_enabled = false  # Phase 3+
+
+[paper_trading]
+enabled = true  # Use simulator instead of real orders
+fill_rate = 0.70  # 70% simulated fill rate
+slippage_pct = 0.005  # 0.5% simulated slippage
+initial_balance_usd = 2000.0  # Starting capital for simulation

@@ -1,0 +1,43 @@
+# Rust
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# Environment & Secrets
+.env
+*.key
+*.pem
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+
+# Logs & CSV
+*.log
+*.csv
+trades/
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Backtest data
+backtest/historical_*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+venv/
+env/
+
+# Temporary files
+*.tmp
+*.bak

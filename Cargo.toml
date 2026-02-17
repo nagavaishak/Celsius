@@ -1,0 +1,49 @@
+[package]
+name = "polymarket-bot"
+version = "0.1.0"
+edition = "2021"
+authors = ["Celsius Team"]
+
+[dependencies]
+# Async runtime
+tokio = { version = "1.35", features = ["full"] }
+tokio-tungstenite = "0.21"
+futures = "0.3"
+
+# HTTP
+reqwest = { version = "0.11", features = ["json"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Blockchain
+ethers = "2.0"
+
+# Data structures
+dashmap = "5.5"
+
+# Time
+chrono = "0.4"
+
+# State persistence
+rusqlite = "0.30"
+
+# Config
+dotenv = "0.15"
+toml = "0.8"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Metrics (optional, Phase 3+)
+prometheus = { version = "0.13", optional = true }
+
+[features]
+default = []
+metrics = ["prometheus"]

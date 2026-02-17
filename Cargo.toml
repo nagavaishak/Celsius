@@ -41,6 +41,9 @@ tracing-subscriber = "0.3"
 anyhow = "1.0"
 thiserror = "1.0"
 
+# Regex
+regex = "1.10"
+
 # Metrics (optional, Phase 3+)
 prometheus = { version = "0.13", optional = true }
 
